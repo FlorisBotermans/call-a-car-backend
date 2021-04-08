@@ -5,9 +5,9 @@ module.exports = {
     createCarAccident(req, res) {
         Car.findById({ _id: req.params.carid })
             .then((car) => {
-                if(!car) return res.status(404).send({ error: 'car with this id does not exist' })
+                if (!car) return res.status(404).send({ error: 'car with this id does not exist' })
                 else {
-                    const carAccident = new CarAccident({
+                    const newCarAccident = new CarAccident({
                         driversInvolved: req.body.driversInvolved,
                         locationX: req.body.locationX,
                         locationY: req.body.locationY,
@@ -15,10 +15,10 @@ module.exports = {
                         weekNumber: req.body.weekNumber
                     })
 
-                    car.carAccidents.push(carAccident)
+                    car.carAccidents.push(newCarAccident)
                     car.save()
                         .then(() => {
-                            return res.send(carAccident)
+                            return res.send(newCarAccident)
                         })
                 }
             })
@@ -27,9 +27,9 @@ module.exports = {
     getCarAccidents(req, res) {
         Car.findById({ _id: req.params.carid })
             .then((car) => {
-                if(!car) return res.status(404).send({ error: 'car with this id does not exist' })
+                if (!car) return res.status(404).send({ error: 'car with this id does not exist' })
                 else {
-                    if(!car.carAccidents.length) return res.status(404).send({ error: 'this car has no accidents' })
+                    if (!car.carAccidents.length) return res.status(404).send({ error: 'this car has no accidents' })
                     else return res.send(car.carAccidents)
                 }
             })

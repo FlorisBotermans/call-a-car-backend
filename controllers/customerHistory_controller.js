@@ -7,7 +7,7 @@ module.exports = {
             .then((customer) => {
                 if (!customer) return res.status(404).send({ error: 'customer with this id does not exist' })
                 else {
-                    const customerHistory = new CustomerHistory({
+                    const newCustomerHistory = new CustomerHistory({
                         licensePlate: req.body.licensePlate,
                         fromLocationX: req.body.fromLocationX,
                         fromLocationY: req.body.fromLocationY,
@@ -20,12 +20,12 @@ module.exports = {
                         customer: customer._id
                     })
 
-                    CustomerHistory.create(customerHistory)
-                        .then((customerHistory) => {
-                            customer.customerHistories.push(customerHistory._id)
+                    CustomerHistory.create(newCustomerHistory)
+                        .then((newCustomerHistory) => {
+                            customer.customerHistories.push(newCustomerHistory._id)
                             customer.save()
                                 .then(() => {
-                                    return res.send(customerHistory)
+                                    return res.send(newCustomerHistory)
                                 })
                         })
                 }
@@ -35,7 +35,7 @@ module.exports = {
     getCustomerHistories(req, res) {
         CustomerHistory.find()
             .then((customerHistories) => {
-                if (!customerHistories) return res.status(404).send({ error: 'there are no customer histories' })
+                if (!customerHistories.length) return res.status(404).send({ error: 'there are no customer histories' })
                 else return res.send(customerHistories)
             })
     }

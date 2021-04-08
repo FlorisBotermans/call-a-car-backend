@@ -5,10 +5,9 @@ module.exports = {
     createCarRide(req, res) {
         Car.findById({ _id: req.params.carid })
             .then((car) => {
-                if(!car) return res.status(404).send({ error: 'car with this id does not exist' })
+                if (!car) return res.status(404).send({ error: 'car with this id does not exist' })
                 else {
-                    const carRide = new CarRide({
-                        licensePlate: req.body.licensePlate,
+                    const newCarRide = new CarRide({
                         startLocationX: req.body.startLocationX,
                         startLocationY: req.body.startLocationY,
                         endLocationX: req.body.endLocationX,
@@ -19,10 +18,14 @@ module.exports = {
                         kilometers: req.body.kilometers
                     })
 
-                    car.carRides.push(carRide)
+                    req.body.passengers.forEach(element => {
+                        newCarRide.passengers.push(element.passenger)
+                    })
+
+                    car.carRides.push(newCarRide)
                     car.save()
                         .then(() => {
-                            return res.send(carRide)
+                            return res.send(newCarRide)
                         })
                 }
             })
@@ -31,9 +34,9 @@ module.exports = {
     getCarRides(req, res) {
         Car.findById({ _id: req.params.carid })
             .then((car) => {
-                if(!car) return res.status(404).send({ error: 'car with this id does not exist' })
+                if (!car) return res.status(404).send({ error: 'car with this id does not exist' })
                 else {
-                    if(!car.carRides.length) return res.status(404).send({ error: 'this car has no rides' })
+                    if (!car.carRides.length) return res.status(404).send({ error: 'this car has no rides' })
                     else return res.send(car.carRides)
                 }
             })

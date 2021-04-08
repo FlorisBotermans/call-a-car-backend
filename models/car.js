@@ -3,10 +3,9 @@ const { carAccidentSchema } = require('./carAccident')
 const { carRideSchema } = require('./carRide')
 
 const carSchema = new mongoose.Schema({
-    licensePlate: {
+    _id: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     power: {
         type: Number,

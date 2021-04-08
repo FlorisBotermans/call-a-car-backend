@@ -3,6 +3,7 @@ const CustomerHistoryController = require('../controllers/customerHistory_contro
 const CarController = require('../controllers/car_controller')
 const CarAccidentController = require('../controllers/carAccident_controller')
 const CarRideController = require('../controllers/carRide_controller')
+const ParkingReservationController = require('../controllers/parkingReservation_controller')
 
 module.exports = (app) => {
     app.post('/api/customer', CustomerController.createCustomer)
@@ -21,4 +22,7 @@ module.exports = (app) => {
 
     app.post('/api/car/:carid/carRide', CarRideController.createCarRide)
     app.get('/api/car/:carid/carRide', CarRideController.getCarRides)
+
+    app.post('/api/car/:carid/parkingReservation', ParkingReservationController.createParkingReservation)
+    app.get('/api/car/:carid/parkingReservation', ParkingReservationController.getParkingReservations)
 }

@@ -2,7 +2,7 @@ const { Customer } = require('../models/customer')
 
 module.exports = {
     createCustomer(req, res) {
-        const customer = new Customer({
+        const newCustomer = new Customer({
             googleId: req.body.googleId,
             name: req.body.name,
             addressLocationX: req.body.addressLocationX,
@@ -12,16 +12,16 @@ module.exports = {
             regular: req.body.regular
         })
 
-        Customer.create(customer)
-            .then((customer) => {
-                return res.send(customer)
+        Customer.create(newCustomer)
+            .then((newCustomer) => {
+                return res.send(newCustomer)
             })
     },
 
     getCustomers(req, res) {
         Customer.find()
             .then((customers) => {
-                if (!customers) return res.status(404).send({ error: 'there are no customers'})
+                if (!customers.length) return res.status(404).send({ error: 'there are no customers'})
                 else return res.send(customers)
             })
     },
