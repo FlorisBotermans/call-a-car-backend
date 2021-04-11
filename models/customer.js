@@ -31,6 +31,7 @@ const customerSchema = new mongoose.Schema({
     },
     regular: {
         type: Boolean,
+        default: false,
         required: true
     },
     customerHistories: [{ 
