@@ -35,7 +35,7 @@ module.exports = {
     },
 
     getCustomerByGoogleId(req,res) {
-        Customer.findOne({googleId: req.body.googleId}).then((customer) =>{
+        Customer.findOne({googleId: req.params.gid}).then((customer) =>{
             if (!customer) return res.status(404).send({ error: 'customer with this id does not exist' })
             else return res.send(customer).end()
         })

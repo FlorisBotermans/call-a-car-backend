@@ -5,6 +5,10 @@ const customerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    googleId:{
+        type:String,
+        required:true
+    },
     addressLocationX: {
         type: Number,
         min:-180,
