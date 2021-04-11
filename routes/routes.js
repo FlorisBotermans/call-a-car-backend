@@ -9,6 +9,7 @@ module.exports = (app) => {
     app.post('/api/customer', CustomerController.createCustomer)
     app.get('/api/customer', CustomerController.getCustomers)
     app.get('/api/customer/:customerid', CustomerController.getCustomerById)
+    app.get('/api/customer/google', CustomerController.getCustomerByGoogleId)
 
     app.post('/api/customer/:customerid/customerHistory', CustomerHistoryController.createCustomerHistory)
     app.get('/api/customer/:customerid/customerHistory', CustomerHistoryController.getCustomerHistories)
